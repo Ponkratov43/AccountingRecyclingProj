@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.ShowController">
+    <children>
+      <Button fx:id="showTableButton" layoutX="373.0" layoutY="533.0" mnemonicParsing="false" onAction="#showTable" prefHeight="42.0" prefWidth="171.0" text="Show Table" />
+        <TableView fx:id="tableView" prefHeight="533.0" prefWidth="917.0">
+            <columns>
+                <TableColumn fx:id="colId" prefWidth="75.0" text="id" />
+                <TableColumn fx:id="colDate" prefWidth="72.0" text="Дата" />
+                <TableColumn fx:id="colSbl" prefWidth="78.0" text="СБЛ" />
+                <TableColumn fx:id="colAluminium" prefWidth="88.0" text="Аллюминий" />
+                <TableColumn fx:id="colCopper" prefWidth="74.0" text="Медь" />
+                <TableColumn fx:id="colBrass" prefWidth="76.0" text="Латунь" />
+                <TableColumn fx:id="colGlass" prefWidth="72.0" text="Стекло" />
+                <TableColumn fx:id="colPaper" prefWidth="81.0" text="Бумага" />
+                <TableColumn fx:id="colRadiators" prefWidth="88.0" text="Радиторы" />
+                <TableColumn fx:id="colAccumulators" prefWidth="125.0" text="Аккамуляторы" />
+            <TableColumn fx:id="colSum" prefWidth="87.0" text="Сумма" />
+            </columns>
+        </TableView>
+    </children>
+</Pane>

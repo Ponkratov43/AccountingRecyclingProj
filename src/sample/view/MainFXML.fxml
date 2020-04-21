@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="524.0" prefWidth="322.0" style="-fx-background-color: #696969;" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.MainController">
+    <children>
+        <Label fx:id="sblLabel" layoutX="108.0" layoutY="15.0" text="СБЛ  :" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI Black" size="23.0" />
+            </font>
+        </Label>
+        <Label fx:id="radiatorLabel" layoutX="50.0" layoutY="310.0" text="Радиатор :" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI Black" size="23.0" />
+            </font>
+        </Label>
+        <Label fx:id="batteryLabel" layoutX="7.0" layoutY="354.0" text="Аккамулятор :" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI Black" size="23.0" />
+            </font>
+        </Label>
+        <Label fx:id="brassLabel" layoutX="85.0" layoutY="160.0" text="Латунь :" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI Black" size="23.0" />
+            </font>
+        </Label>
+        <Label fx:id="copperLabel" layoutX="94.0" layoutY="107.0" text="Медь :" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI Black" size="23.0" />
+            </font>
+        </Label>
+        <Label fx:id="glassLabel" layoutX="85.0" layoutY="212.0" text="Стекло :" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI Black" size="23.0" />
+            </font>
+        </Label>
+        <Label fx:id="aluminiumLabel" layoutX="13.0" layoutY="56.0" text="Аллюминий :" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI Black" size="23.0" />
+            </font>
+        </Label>
+        <Label fx:id="paperLabel" layoutX="33.0" layoutY="261.0" text="Макулатура:" textFill="WHITE">
+            <font>
+                <Font name="Segoe UI Black" size="23.0" />
+            </font>
+        </Label>
+        <TextField fx:id="sblField" layoutX="185.0" layoutY="20.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="copperField" layoutX="185.0" layoutY="111.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="aluminiumField" layoutX="185.0" layoutY="61.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="brassField" layoutX="185.0" layoutY="164.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="batteryField" layoutX="185.0" layoutY="359.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="radiatorField" layoutX="185.0" layoutY="315.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="paperField" layoutX="185.0" layoutY="266.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="glassField" layoutX="185.0" layoutY="217.0" prefHeight="25.0" prefWidth="114.0" />
+        <Button fx:id="addButton" layoutX="16.0" layoutY="466.0" mnemonicParsing="false" onAction="#settingButtonClicked" prefHeight="34.0" prefWidth="126.0" style="-fx-background-radius: 5;" text="Настройки">
+            <font>
+                <Font name="System Bold" size="15.0" />
+            </font>
+        </Button>
+        <Button fx:id="enterButton" layoutX="16.0" layoutY="409.0" mnemonicParsing="false" onAction="#addButtonClicked" prefHeight="34.0" prefWidth="126.0" style="-fx-background-radius: 5;" text="Добавить">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Button>
+        <Button fx:id="showButton" layoutX="175.0" layoutY="466.0" mnemonicParsing="false" onAction="#showButtonClicked" prefHeight="34.0" prefWidth="126.0" style="-fx-background-radius: 5;" text="Таблица">
+            <font>
+                <Font name="System Bold" size="14.0" />
+            </font>
+        </Button>
+      <Button fx:id="subtractButton" layoutX="175.0" layoutY="409.0" mnemonicParsing="false" onAction="#subtractButtonClicked" prefHeight="34.0" prefWidth="126.0" style="-fx-background-radius: 5;" text="Вычесть">
+         <font>
+            <Font name="System Bold" size="14.0" />
+         </font>
+      </Button>
+    </children>
+</Pane>
