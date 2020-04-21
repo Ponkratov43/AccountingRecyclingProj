@@ -128,7 +128,6 @@ public class MainController {
         setBattery();
         price.selectPrice();
         setSum();
-        printTotal();
 
 
     }
@@ -276,13 +275,6 @@ public class MainController {
         }
         return resultList;
     }
-
-
-    public void printTotal() throws SQLException {
-
-        selectTotal().forEach(System.out::println);
-    }
-
 
     public double getSbl() {
         return sbl;
