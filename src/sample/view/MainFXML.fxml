@@ -46,14 +46,14 @@
                 <Font name="Segoe UI Black" size="23.0" />
             </font>
         </Label>
-        <TextField fx:id="sblField" layoutX="185.0" layoutY="20.0" prefHeight="25.0" prefWidth="114.0" />
-        <TextField fx:id="copperField" layoutX="185.0" layoutY="111.0" prefHeight="25.0" prefWidth="114.0" />
-        <TextField fx:id="aluminiumField" layoutX="185.0" layoutY="61.0" prefHeight="25.0" prefWidth="114.0" />
-        <TextField fx:id="brassField" layoutX="185.0" layoutY="164.0" prefHeight="25.0" prefWidth="114.0" />
-        <TextField fx:id="batteryField" layoutX="185.0" layoutY="359.0" prefHeight="25.0" prefWidth="114.0" />
-        <TextField fx:id="radiatorField" layoutX="185.0" layoutY="315.0" prefHeight="25.0" prefWidth="114.0" />
-        <TextField fx:id="paperField" layoutX="185.0" layoutY="266.0" prefHeight="25.0" prefWidth="114.0" />
-        <TextField fx:id="glassField" layoutX="185.0" layoutY="217.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="sblField" alignment="CENTER" layoutX="185.0" layoutY="20.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="copperField" alignment="CENTER" layoutX="185.0" layoutY="111.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="aluminiumField" alignment="CENTER" layoutX="185.0" layoutY="61.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="brassField" alignment="CENTER" layoutX="185.0" layoutY="164.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="batteryField" alignment="CENTER" layoutX="185.0" layoutY="359.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="radiatorField" alignment="CENTER" layoutX="185.0" layoutY="315.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="paperField" alignment="CENTER" layoutX="185.0" layoutY="266.0" prefHeight="25.0" prefWidth="114.0" />
+        <TextField fx:id="glassField" alignment="CENTER" layoutX="185.0" layoutY="217.0" prefHeight="25.0" prefWidth="114.0" />
         <Button fx:id="addButton" layoutX="16.0" layoutY="466.0" mnemonicParsing="false" onAction="#settingButtonClicked" prefHeight="34.0" prefWidth="126.0" style="-fx-background-radius: 5;" text="Настройки">
             <font>
                 <Font name="System Bold" size="15.0" />

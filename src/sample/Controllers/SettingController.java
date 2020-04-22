@@ -12,6 +12,7 @@ import sample.Entity.Price;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.regex.Pattern;
 
 
 public class SettingController {
@@ -47,9 +48,6 @@ public class SettingController {
     private double radiatorPrice;
     private double paperPrice;
     private double glassPrice;
-
-    String resMessage;
-
     public Button saveButtonSetting;
 
     public Connection connection = DBManager.getConnection();
@@ -116,7 +114,6 @@ public class SettingController {
         if (rs.next()) {
             count = rs.getInt(1);
         }
-        System.out.println(count);
         return count == 1;
     }
 
@@ -149,14 +146,13 @@ public class SettingController {
         } catch (SQLException sql) {
             sql.printStackTrace();
         }
-        System.out.println("test");
 
     }
 
     public class IOService {
 
         public void alert() {
-            resMessage = "СБЛ: " + getSblPrice() + "\n" + "Аллюминий: " + getAluminiumPrice() + "\n" +
+            String resMessage = "СБЛ: " + getSblPrice() + "\n" + "Аллюминий: " + getAluminiumPrice() + "\n" +
                     "Аккамуляторы: : " + getBatteryPrice() + "\n" + "Радиторы: " + getRadiatorPrice() + "\n" +
                     "Бумага: " + getPaperPrice() + "\n" + "Стекло: " + getGlassPrice() + "\n" +
                     "Медь: " + getCopperPrice() + "\n" + "Латунь: " + getBrassPrice();

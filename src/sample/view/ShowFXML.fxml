@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.ShowController">
+<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="576.0" prefWidth="917.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="sample.Controllers.ShowController">
     <children>
-      <Button fx:id="showTableButton" layoutX="373.0" layoutY="533.0" mnemonicParsing="false" onAction="#showTable" prefHeight="42.0" prefWidth="171.0" text="Show Table" />
+      <Button fx:id="showTableButton" layoutX="373.0" layoutY="533.0" mnemonicParsing="false" onAction="#showTable" prefHeight="42.0" prefWidth="171.0" text="Обновить" />
         <TableView fx:id="tableView" prefHeight="533.0" prefWidth="917.0">
             <columns>
                 <TableColumn fx:id="colId" prefWidth="75.0" text="id" />
@@ -21,5 +21,6 @@
             <TableColumn fx:id="colSum" prefWidth="87.0" text="Сумма" />
             </columns>
         </TableView>
+      <Button fx:id="deleteTable" layoutX="746.0" layoutY="533.0" mnemonicParsing="false" onAction="#deleteTable" prefHeight="42.0" prefWidth="171.0" text="Удалить таблицу" />
     </children>
 </Pane>

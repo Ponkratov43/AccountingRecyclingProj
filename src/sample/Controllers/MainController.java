@@ -11,31 +11,32 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.DB.DBManager;
 import sample.Entity.Price;
-import sample.Entity.Total;
+import sample.Entity.Table;
 
 import java.io.IOException;
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class MainController {
 
+
+
     private static final String ADD =
-            "INSERT INTO total VALUES (null, CURDATE(), ?,?,?,?,?,?,?,?,?);";
+            "INSERT INTO total VALUES (null, CURDATE(), ?,?,?,?,?,?,?,?,?) ;";
 
     private static final String RESULT_COW =
             "select count(*) from total";
 
-    private static final String SELECT_TOTAL =
-            "select * from total;";
 
     private static final String UPDATE =
-            "UPDATE total set sbl = sbl + ?, aluminium = aluminium + ?, copper = copper + ?, brass = brass + ?, " +
-                    "glass = glass + ?, paper = paper + ?, radiators = radiators + ?, accumulators = accumulators + ?, sum = sum + ?;";
+            "UPDATE total SET sbl = sbl + ?, aluminium = aluminium + ?, copper = copper + ?, brass = brass + ?, " +
+                    "glass = glass + ?, paper = paper + ?, radiators = radiators + ?, accumulators = accumulators + ?, sum = sum + ?";
     private static final String SUBTRACT =
-            "UPDATE total set sbl = sbl - ?, aluminium = aluminium - ?, copper = copper - ?, brass = brass - ?, " +
-                    "glass = glass - ?, paper = paper - ?, radiators = radiators - ?, accumulators = accumulators - ?, sum = sum - ?;";
+            "UPDATE total SET sbl = sbl - ?, aluminium = aluminium - ?, copper = copper - ?, brass = brass - ?, " +
+                    "glass = glass - ?, paper = paper - ?, radiators = radiators - ?, accumulators = accumulators - ?, sum = sum - ?";
 
 
     private String res;
@@ -65,6 +66,8 @@ public class MainController {
 
     Connection connection = DBManager.getConnection();
     Price price = new Price();
+    ShowController showController = new ShowController();
+    LocalDate localDate = LocalDate.now();
 
     //open setting window
     @FXML
@@ -88,10 +91,11 @@ public class MainController {
         stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.showAndWait();
+
     }
 
     @FXML
-    public void showButtonClicked() throws SQLException {
+    public void showButtonClicked() {
         showButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/sample/view/ShowFXML.fxml"));
@@ -112,8 +116,7 @@ public class MainController {
         stage.setResizable(false);
         stage.showAndWait();
 
-        ShowController showController = new ShowController();
-        showController.populateTableView();
+        showController.showTable();
     }
 
 
@@ -128,8 +131,6 @@ public class MainController {
         setBattery();
         price.selectPrice();
         setSum();
-
-
     }
 
     public boolean checkAvailabilitySettings() throws SQLException {
@@ -140,33 +141,32 @@ public class MainController {
             return true;
     }
 
-    public void alert (){
+    public void alert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Successful!");
         alert.setHeaderText(null);
         alert.setContentText("Всего: " + "\n" + res);
         alert.showAndWait();
     }
+
     //  enter and save
     @FXML
     public void addButtonClicked() throws SQLException {
 
         if (checkAvailabilitySettings()) {
 
-            try {
-                if (enterExists()) {
-                    updateOrSubtract(UPDATE);
-                } else {
-                    setRes();
-                }
-            } catch (SQLException e) {
-                e.printStackTrace();
+            if (!enterExists()) {
+                setRes();
+            } else if (localDate.isAfter(localDate.minusDays(1))) {
+                updateOrSubtract(UPDATE);
+            } else {
+                setRes();
             }
 
             res = "СБЛ: " + getSbl() + "\n" + "Аллюминий: " + getAluminium() + "\n" +
                     "Медь: " + getCopper() + "\n" + "Латунь: " + getBrass() + "\n" +
                     "Стекло: " + getGlass() + "\n" + "Бумага: " + getPaper() + "\n" +
-                    "Радиторы: " + getRadiator() + "\n" + "Аккамуляторы: " + getBattery() + "\n" + "\n" + "К выплате: " + getSum();
+                    "Радиторы: " + getRadiator() + "\n" + "Аккамуляторы: " + getBattery() + "\n" + "\n" + "К выплате: " + getSum() + "р";
 
             alert();
         } else {
@@ -185,12 +185,15 @@ public class MainController {
 
         try {
             if (enterExists()) {
-                updateOrSubtract(SUBTRACT);
-
+                if (localDate.isAfter(localDate.minusDays(1))) {
+                    updateOrSubtract(SUBTRACT);
+                } else {
+                    setRes();
+                }
                 res = "СБЛ: " + getSbl() + "\n" + "Аллюминий: " + getAluminium() + "\n" +
                         "Медь: " + getCopper() + "\n" + "Латунь: " + getBrass() + "\n" +
                         "Стекло: " + getGlass() + "\n" + "Бумага: " + getPaper() + "\n" +
-                        "Радиторы: " + getRadiator() + "\n" + "Аккамуляторы: " + getBattery() + "\n" + "\n" + "Вычтено: " + getSum();
+                        "Радиторы: " + getRadiator() + "\n" + "Аккамуляторы: " + getBattery() + "\n" + "\n" + "Вычтено: " + getSum() + "р";
                 alert();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -249,33 +252,11 @@ public class MainController {
         if (rs.next()) {
             count = rs.getInt(1);
         }
-        System.out.println(count);
-        return count == 1;
-    }
-
-    public List<Total> selectTotal() throws SQLException {
-        Statement statement = connection.createStatement();
-        ResultSet resultSet = statement.executeQuery(SELECT_TOTAL);
-        List<Total> resultList = new ArrayList<>();
-
-        while (resultSet.next()) {
-            int id = resultSet.getInt(1);
-            Date date = resultSet.getDate(2);
-            double sbl = resultSet.getDouble(3);
-            double aluminium = resultSet.getDouble(4);
-            double copper = resultSet.getDouble(5);
-            double brass = resultSet.getDouble(6);
-            double glass = resultSet.getDouble(7);
-            double paper = resultSet.getDouble(8);
-            double radiators = resultSet.getDouble(9);
-            double accumulators = resultSet.getDouble(10);
-            Total total = new Total(id, date, sbl, aluminium, copper, brass, glass, paper, radiators, accumulators);
-
-            resultList.add(total);
+        if (count == 0) {
+            return false;
         }
-        return resultList;
+        return true;
     }
-
     public double getSbl() {
         return sbl;
     }
@@ -350,4 +331,5 @@ public class MainController {
                 (getGlass() * price.getGlass_price()) + (getPaper() * price.getPaper_price()) +
                 (getBattery() * price.getAccumulators_price()) + (getRadiator() * price.getRadiators_price());
     }
+
 }

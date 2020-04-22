@@ -36,6 +36,13 @@ public class Table {
     public Table() {
     }
 
+    public Table(StringProperty date) {
+        this.date = date;
+    }
+
+    public Table(java.util.Date date) {
+    }
+
     public int getId() {
         return id.get();
     }
@@ -48,8 +55,8 @@ public class Table {
         return id;
     }
 
-    public String getDate() {
-        return date.get();
+    public StringProperty getDate() {
+        return date;
     }
 
     public StringProperty dateProperty() {
