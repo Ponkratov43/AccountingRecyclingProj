@@ -11,13 +11,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import sample.DB.DBManager;
 import sample.Entity.Price;
-import sample.Entity.Table;
 
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 
 
 public class MainController {
@@ -31,12 +28,14 @@ public class MainController {
             "select count(*) from total";
 
 
+    private static final String GET_LAST_DATE = "select date from total order by date desc limit 1";
+
     private static final String UPDATE =
             "UPDATE total SET sbl = sbl + ?, aluminium = aluminium + ?, copper = copper + ?, brass = brass + ?, " +
-                    "glass = glass + ?, paper = paper + ?, radiators = radiators + ?, accumulators = accumulators + ?, sum = sum + ?";
+                    "glass = glass + ?, paper = paper + ?, radiators = radiators + ?, accumulators = accumulators + ?, sum = sum + ? where date = ?";
     private static final String SUBTRACT =
             "UPDATE total SET sbl = sbl - ?, aluminium = aluminium - ?, copper = copper - ?, brass = brass - ?, " +
-                    "glass = glass - ?, paper = paper - ?, radiators = radiators - ?, accumulators = accumulators - ?, sum = sum - ?";
+                    "glass = glass - ?, paper = paper - ?, radiators = radiators - ?, accumulators = accumulators - ?, sum = sum - ? where date = ?";
 
 
     private String res;
@@ -67,7 +66,6 @@ public class MainController {
     Connection connection = DBManager.getConnection();
     Price price = new Price();
     ShowController showController = new ShowController();
-    LocalDate localDate = LocalDate.now();
 
     //open setting window
     @FXML
@@ -96,7 +94,6 @@ public class MainController {
 
     @FXML
     public void showButtonClicked() {
-        showButton.getScene().getWindow();
         FXMLLoader loader = new FXMLLoader();
         loader.setLocation(getClass().getResource("/sample/view/ShowFXML.fxml"));
         try {
@@ -115,8 +112,6 @@ public class MainController {
         stage.setScene(new Scene(root));
         stage.setResizable(false);
         stage.showAndWait();
-
-        showController.showTable();
     }
 
 
@@ -149,16 +144,35 @@ public class MainController {
         alert.showAndWait();
     }
 
+    private LocalDate lastRecordDate() {
+        connection = DBManager.getConnection();
+        try {
+            ResultSet resultSet = connection.createStatement().executeQuery(GET_LAST_DATE);
+            if (resultSet.next()) {
+                return resultSet.getDate(1).toLocalDate();
+            }
+            return LocalDate.MIN;
+
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+            return LocalDate.MIN;
+        }
+
+    }
+
     //  enter and save
     @FXML
     public void addButtonClicked() throws SQLException {
 
         if (checkAvailabilitySettings()) {
 
+            LocalDate currantDate = LocalDate.now();
+            LocalDate lastRecordDate = lastRecordDate();
+
             if (!enterExists()) {
                 setRes();
-            } else if (localDate.isAfter(localDate.minusDays(1))) {
-                updateOrSubtract(UPDATE);
+            } else if (currantDate.equals(lastRecordDate)) {
+                updateOrSubtract(UPDATE, currantDate);
             } else {
                 setRes();
             }
@@ -185,8 +199,11 @@ public class MainController {
 
         try {
             if (enterExists()) {
-                if (localDate.isAfter(localDate.minusDays(1))) {
-                    updateOrSubtract(SUBTRACT);
+                LocalDate currantDate = LocalDate.now();
+                LocalDate lastRecordDate = lastRecordDate();
+
+                if (currantDate.equals(lastRecordDate)) {
+                    updateOrSubtract(SUBTRACT, currantDate);
                 } else {
                     setRes();
                 }
@@ -207,7 +224,7 @@ public class MainController {
         }
     }
 
-    private void updateOrSubtract(String query) {
+    private void updateOrSubtract(String query, LocalDate date) {
         try {
             PreparedStatement statement = connection.prepareStatement(query);
             statement.setDouble(1, getSbl());
@@ -219,6 +236,8 @@ public class MainController {
             statement.setDouble(7, getRadiator());
             statement.setDouble(8, getBattery());
             statement.setDouble(9, getSum());
+            statement.setDate(10, java.sql.Date.valueOf(date));
+
             statement.execute();
         } catch (SQLException sql) {
             sql.printStackTrace();
