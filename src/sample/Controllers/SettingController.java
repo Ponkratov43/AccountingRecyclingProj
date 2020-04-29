@@ -6,13 +6,14 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import sample.DB.DBManager;
 import sample.Entity.Price;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.regex.Pattern;
 
 
 public class SettingController {
@@ -53,22 +54,30 @@ public class SettingController {
     public Connection connection = DBManager.getConnection();
 
     @FXML
-    public void saveButtonSetting() throws SQLException {
+    public void saveButtonSetting() {
         IOService ioService = new IOService();
+try {
+    setSblPrice();
+    setCopperPrice();
+    setAluminiumPrice();
+    setBrassPrice();
+    setGlassPrice();
+    setPaperPrice();
+    setRadiatorPrice();
+    setBatteryPrice();
 
-        setSblPrice();
-        setCopperPrice();
-        setAluminiumPrice();
-        setBrassPrice();
-        setGlassPrice();
-        setPaperPrice();
-        setRadiatorPrice();
-        setBatteryPrice();
-
-        selectSetting();
-        ioService.printAllSetting();
-        ioService.alert();
-
+    selectSetting();
+    ioService.printAllSetting();
+    ioService.alert();
+}catch (Exception e) {
+    Alert alert = new Alert(Alert.AlertType.ERROR);
+    Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+    stage.getIcons().add(new Image(this.getClass().getResource("/sample/view/resources/error.png").toString()));
+    alert.setTitle("Error!");
+    alert.setHeaderText(null);
+    alert.setContentText("Заполните все поля.");
+    alert.showAndWait();
+}
 
         try {
             if (settingExists()) {
@@ -153,11 +162,13 @@ public class SettingController {
 
         public void alert() {
             String resMessage = "СБЛ: " + getSblPrice() + "\n" + "Аллюминий: " + getAluminiumPrice() + "\n" +
-                    "Аккамуляторы: : " + getBatteryPrice() + "\n" + "Радиторы: " + getRadiatorPrice() + "\n" +
-                    "Бумага: " + getPaperPrice() + "\n" + "Стекло: " + getGlassPrice() + "\n" +
-                    "Медь: " + getCopperPrice() + "\n" + "Латунь: " + getBrassPrice();
+                    "Медь: : " + getCopperPrice() + "\n" + "Латунь: " + getBrassPrice() + "\n" +
+                    "Стекло: " + getGlassPrice() + "\n" + "Бумага: " + getPaperPrice() + "\n" +
+                    "Аккамулятор: " + getBatteryPrice() + "\n" + "Радиатор: " + getRadiatorPrice();
 
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image(this.getClass().getResource("/sample/view/resources/ok.png").toString()));
             alert.setTitle("Successful!");
             alert.setHeaderText(null);
             alert.setContentText(resMessage);

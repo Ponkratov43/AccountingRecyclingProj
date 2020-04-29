@@ -8,10 +8,10 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import sample.DB.DBManager;
 import sample.Entity.Price;
-
 import java.io.IOException;
 import java.sql.*;
 import java.time.LocalDate;
@@ -65,7 +65,8 @@ public class MainController {
 
     Connection connection = DBManager.getConnection();
     Price price = new Price();
-    ShowController showController = new ShowController();
+
+    
 
     //open setting window
     @FXML
@@ -85,6 +86,7 @@ public class MainController {
             e.printStackTrace();
         }
         Stage stage = new Stage();
+        stage.getIcons().add(new Image("sample/view/resources/setting.png"));
         stage.setTitle("Settings");
         stage.setScene(new Scene(root));
         stage.setResizable(false);
@@ -108,6 +110,7 @@ public class MainController {
             e.printStackTrace();
         }
         Stage stage = new Stage();
+        stage.getIcons().add(new Image("sample/view/resources/table.png"));
         stage.setTitle("Table");
         stage.setScene(new Scene(root));
         stage.setResizable(false);
@@ -138,6 +141,8 @@ public class MainController {
 
     public void alert() {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(this.getClass().getResource("/sample/view/resources/ok.png").toString()));
         alert.setTitle("Successful!");
         alert.setHeaderText(null);
         alert.setContentText("Всего: " + "\n" + res);
@@ -185,6 +190,8 @@ public class MainController {
             alert();
         } else {
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+            stage.getIcons().add(new Image(this.getClass().getResource("/sample/view/resources/error.png").toString()));
             alert.setTitle("Error!");
             alert.setHeaderText(null);
             alert.setContentText("Настройки не выставлены.");
@@ -214,6 +221,8 @@ public class MainController {
                 alert();
             } else {
                 Alert alert = new Alert(Alert.AlertType.ERROR);
+                Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+                stage.getIcons().add(new Image(this.getClass().getResource("/sample/view/resources/error.png").toString()));
                 alert.setTitle("Error!");
                 alert.setHeaderText(null);
                 alert.setContentText("Нет ни одной записи.");

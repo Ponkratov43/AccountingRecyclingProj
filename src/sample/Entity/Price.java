@@ -62,78 +62,35 @@ public class Price {
         }
         return resultList;
     }
-
     public double getId() {
         return id;
     }
-
-    public void setId(double id) {
-        this.id = id;
-    }
-
     public double getSbl_price() {
         return sbl_price;
     }
-
-    public void setSbl_price(double sbl_price) {
-        this.sbl_price = sbl_price;
-    }
-
     public double getAluminium_price() {
         return aluminium_price;
     }
-
-    public void setAluminium_price(double aluminium_price) {
-        this.aluminium_price = aluminium_price;
-    }
-
     public double getCopper_price() {
         return copper_price;
     }
-
-    public void setCopper_price(double copper_price) {
-        this.copper_price = copper_price;
-    }
-
     public double getBrass_price() {
         return brass_price;
     }
-
-    public void setBrass_price(double brass_price) {
-        this.brass_price = brass_price;
-    }
-
     public double getGlass_price() {
         return glass_price;
     }
-
-    public void setGlass_price(double glass_price) {
-        this.glass_price = glass_price;
-    }
-
     public double getPaper_price() {
         return paper_price;
-    }
-
-    public void setPaper_price(double paper_price) {
-        this.paper_price = paper_price;
     }
 
     public double getRadiators_price() {
         return radiators_price;
     }
-
-    public void setRadiators_price(double radiators_price) {
-        this.radiators_price = radiators_price;
-    }
-
     public double getAccumulators_price() {
         return accumulators_price;
     }
 
-    public void setAccumulators_price(double accumulators_price) {
-        this.accumulators_price = accumulators_price;
-    }
 
     @Override
     public String toString() {
